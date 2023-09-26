@@ -1,0 +1,1 @@
+CREATE SEQUENCE IF NOT EXISTS shop.shop_sq;
