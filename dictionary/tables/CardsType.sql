@@ -1,7 +1,7 @@
-CREATE TABLE IF NOT EXISTS dictionary.clientscard
+CREATE TABLE IF NOT EXISTS dictionary.cardstype
 (
-    card_id  SMALLSERIAL NOT NULL
-        CONSTRAINT pk_card PRIMARY KEY,
+    type_id  SMALLSERIAL NOT NULL
+        CONSTRAINT pk_cardstype PRIMARY KEY,
     name     VARCHAR(16) NOT NULL,
     discount SMALLINT    NOT NULL
 );

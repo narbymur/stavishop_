@@ -1,6 +1,6 @@
-CREATE TABLE IF NOT EXISTS dictionary.productstype
+CREATE TABLE IF NOT EXISTS dictionary.producttype
 (
-    product_type     BIGSERIAL NOT NULL,
-    product_category BIGSERIAL NOT NULL,
-    name             CHAR(3)   NOT NULL
+    type_id SMALLSERIAL NOT NULL
+        CONSTRAINT pk_producttype PRIMARY KEY,
+    name    VARCHAR(16) NOT NULL
 );
