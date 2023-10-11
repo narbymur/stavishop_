@@ -1,7 +1,8 @@
-CREATE TABLE IF NOT EXISTS shop.clients
+CREATE TABLE IF NOT EXISTS history.clientschanges
 (
-    client_id   INT          NOT NULL
-        CONSTRAINT pk_clients PRIMARY KEY,
+    log_id      BIGSERIAL    NOT NULL
+        CONSTRAINT pk_clientschanges PRIMARY KEY,
+    client_id   INT          NOT NULL,
     name        VARCHAR(300) NOT NULL,
     birth_date  DATE         NOT NULL,
     gender      CHAR(3)      NOT NULL,
