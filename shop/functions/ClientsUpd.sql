@@ -16,7 +16,11 @@ BEGIN
            c.birth_date,
            c.gender,
            c.phone
-    INTO _client_id, _name, _birth_date, _gender, _phone
+    INTO _client_id,
+        _name,
+        _birth_date,
+        _gender,
+        _phone
     FROM jsonb_to_record(_src) AS c (client_id INT,
                                      name VARCHAR(300),
                                      birth_date DATE,
