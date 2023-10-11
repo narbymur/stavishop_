@@ -1,0 +1,1 @@
+CREATE SEQUENCE IF NOT EXISTS products.productssq AS BIGINT;
