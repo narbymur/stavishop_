@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION shop.staffupd(_src JSONB, _ch_staff_id INT) RETURNS JSONB
+CREATE OR REPLACE FUNCTION shop.staff_upd(_src JSONB, _ch_staff_id INT) RETURNS JSONB
     LANGUAGE plpgsql
     SECURITY DEFINER
 AS
