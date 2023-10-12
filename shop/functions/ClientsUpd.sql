@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION shop.clients_upd(_src JSONB, _ch_staff_id INT) RETURNS JSONB
+CREATE OR REPLACE FUNCTION shop.clientsupd(_src JSONB, _ch_staff_id INT) RETURNS JSONB
     LANGUAGE plpgsql
     SECURITY DEFINER
 AS
@@ -9,6 +9,7 @@ DECLARE
     _birth_date DATE;
     _gender     CHAR(3);
     _phone      VARCHAR(11);
+    _res        JSON;
     _dt         TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
 BEGIN
     SELECT coalesce(c.client_id, nextval('shop.shopsq')) AS client_id,
@@ -17,15 +18,22 @@ BEGIN
            c.gender,
            c.phone
     INTO _client_id,
-        _name,
-        _birth_date,
-        _gender,
-        _phone
-    FROM jsonb_to_record(_src) AS c (client_id INT,
-                                     name VARCHAR(300),
+         _name,
+         _birth_date,
+         _gender,
+         _phone
+    FROM jsonb_to_record(_src) AS c (client_id  INT,
+                                     name       VARCHAR(300),
                                      birth_date DATE,
-                                     gender CHAR(3),
-                                     phone VARCHAR(11));
+                                     gender     CHAR(3),
+                                     phone      VARCHAR(11));
+
+    IF EXISTS(SELECT 1 FROM shop.clients cl WHERE cl.phone = _phone)
+    THEN
+        RETURN public.errmessage(_errcode := 'shop.clientsupd.phone.phone_exists',
+                                 _msg     := 'Такой телефон у другого человека',
+                                 _detail  := NULL);
+    END IF;
 
     WITH ins AS (
         INSERT INTO shop.clients AS cl (client_id,
@@ -68,13 +76,14 @@ BEGIN
                    i.ch_dt
             FROM ins i)
 
-    INSERT INTO whsync.clientssync (client_id,
-                                    name,
-                                    birth_date,
-                                    gender,
-                                    phone,
-                                    ch_staff_id,
-                                    ch_dt)
+    , sync AS (
+        INSERT INTO whsync.clientssync (client_id,
+                                        name,
+                                        birth_date,
+                                        gender,
+                                        phone,
+                                        ch_staff_id,
+                                        ch_dt)
     SELECT i.client_id,
            i.name,
            i.birth_date,
@@ -82,8 +91,14 @@ BEGIN
            i.phone,
            i.ch_staff_id,
            i.ch_dt
-    FROM ins i;
+    FROM ins i)
 
-    RETURN JSONB_BUILD_OBJECT('data', NULL);
+    SELECT JSONB_BUILD_OBJECT('data', JSONB_AGG(ROW_TO_JSON(res)))
+    INTO _res
+    FROM (SELECT i.client_id,
+                 i.name
+          FROM ins i) res;
+
+    RETURN _res;
 END
 $$;
