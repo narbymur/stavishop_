@@ -1,18 +1,18 @@
-CREATE OR REPLACE FUNCTION dictionary.rooms_upd(_src JSONB) RETURNS JSONB
+CREATE OR REPLACE FUNCTION dictionary.places_upd(_src JSONB) RETURNS JSONB
     LANGUAGE plpgsql
     SECURITY DEFINER
 AS
 $$
 BEGIN
-    INSERT INTO dictionary.rooms (rooms_id,
-                                  name)
-    SELECT COALESCE(r.rooms_id, nextval('dictionary.rooms_rooms_id_seq')) AS rooms_id,
+    INSERT INTO dictionary.places (place_id,
+                                   name)
+    SELECT COALESCE(p.place_id, nextval('dictionary.places_place_id_seq')) AS place_id,
            s.name
-    FROM JSONB_TO_RECORD(_src) AS s (rooms_id BIGINT,
+    FROM JSONB_TO_RECORD(_src) AS s (place_id BIGINT,
                                      name     VARCHAR(32))
-             LEFT JOIN dictionary.rooms r
-                       ON r.rooms_id = s.rooms_id
-    ON CONFLICT (rooms_id) DO UPDATE
+             LEFT JOIN dictionary.places p
+                       ON p.place_id = s.place_id
+    ON CONFLICT (place_id) DO UPDATE
         SET name = excluded.name;
 
     RETURN JSONB_BUILD_OBJECT('data', NULL);
