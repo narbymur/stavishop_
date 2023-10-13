@@ -10,7 +10,7 @@ BEGIN
     SELECT COALESCE(ct.type_id, nextval('dictionary.cardstype_type_id_seq')) AS type_id,
            s.name,
            s.discount
-    FROM jsonb_to_record(_src) AS s (type_id  SMALLINT,
+    FROM JSONB_TO_RECORD(_src) AS s (type_id  SMALLINT,
                                      name     VARCHAR(16),
                                      discount SMALLINT)
              LEFT JOIN dictionary.cardstype ct
