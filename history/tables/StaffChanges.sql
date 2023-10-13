@@ -1,11 +1,11 @@
-CREATE TABLE IF NOT EXISTS shop.staff
+CREATE TABLE IF NOT EXISTS history.staffchanges
 (
-    staff_id    INT         NOT NULL
-        CONSTRAINT pk_staff PRIMARY KEY,
+    log_id      BIGSERIAL   NOT NULL
+        CONSTRAINT pk_staffchanges PRIMARY KEY,
+    staff_id    INT         NOT NULL,
     position_id SMALLINT    NOT NULL,
     name        VARCHAR(64) NOT NULL,
-    phone       VARCHAR(11) NOT NULL
-        CONSTRAINT uq_staff_phone UNIQUE,
+    phone       VARCHAR(11) NOT NULL,
     birth_date  DATE        NOT NULL,
     is_active   BOOLEAN     NOT NULL,
     ch_staff_id INT         NOT NULL,
