@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION whsync.clientsexport(_log_id BIGINT) RETURNS JSONB
+CREATE OR REPLACE FUNCTION whsync.clients_export(_log_id BIGINT) RETURNS JSONB
     LANGUAGE plpgsql
     SECURITY DEFINER
 AS
