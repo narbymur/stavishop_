@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION shop.staff_getbyphone(_phone VARCHAR(11)) RETURNS JSONB
+CREATE OR REPLACE FUNCTION shop.staff_getinfo(_position_id SMALLINT, _phone VARCHAR(11)) RETURNS JSONB
     SECURITY DEFINER
     LANGUAGE plpgsql
 AS
@@ -12,6 +12,7 @@ BEGIN
                      s.birth_date,
                      s.is_active
               FROM shop.staff s
-              WHERE s.phone = _phone) res;
+              WHERE s.position_id = COALESCE(_position_id, s.position_id)
+                AND s.phone       = COALESCE(_phone, s.phone)) res;
 END
 $$;

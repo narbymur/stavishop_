@@ -11,8 +11,8 @@ BEGIN
            s.name,
            s.salary
     FROM JSONB_TO_RECORD(_src) AS s (position_id SMALLINT,
-                                     name VARCHAR(64),
-                                     salary DECIMAL(8, 2))
+                                     name        VARCHAR(64),
+                                     salary      DECIMAL(8, 2))
              LEFT JOIN dictionary.staffposition sp
                        ON sp.position_id = s.position_id
     ON CONFLICT (position_id) DO UPDATE
