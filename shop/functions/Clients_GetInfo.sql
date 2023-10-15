@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION shop.clients_getbyphone(_phone VARCHAR(11)) RETURNS JSONB
+CREATE OR REPLACE FUNCTION shop.clients_getinfo(_phone VARCHAR(11)) RETURNS JSONB
     LANGUAGE plpgsql
     SECURITY DEFINER
 AS
@@ -11,6 +11,6 @@ BEGIN
                      cl.birth_date,
                      cl.gender
               FROM shop.clients cl
-              WHERE cl.phone = _phone) res;
+              WHERE cl.phone = COALESCE(_phone, cl.phone)) res;
 END
 $$;
