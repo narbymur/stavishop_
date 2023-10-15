@@ -9,10 +9,11 @@
 Пример заполнения:
 ```sql 
 select dictionary.cardstype_upd('{
-"type_id": 1,
-"name": "Бриллиантовая",
-"discount": 15
-}')
+  "name": "Бриллиантовая",
+  "type_id": 1,
+  "buyout": 50000.00,
+  "discount": 15
+}');
 ```
 Пример ответа при правильном выполнении:
 
@@ -24,30 +25,32 @@ select dictionary.cardstype_upd('{
 
 Ответ:
 ```json
-{
-   "data":[
-      {
-         "name":"Бриллиантовая",
-         "type_id":1,
-         "discount":15
-      },
-      {
-         "name":"Золотая",
-         "type_id":2,
-         "discount":10
-      },
-      {
-         "name":"Серебряная",
-         "type_id":3,
-         "discount":7
-      },
-      {
-         "name":"Бронзовая",
-         "type_id":4,
-         "discount":5
-      }
-   ]
-}
+[
+  {
+    "name": "Бриллиантовая",
+    "type_id": 1,
+    "buyout": 50000.00,
+    "discount": 15
+  },
+  {
+    "name": "Золотая",
+    "type_id": 2,
+    "buyout": 35000.00,
+    "discount": 10
+  },
+  {
+    "name": "Серебряная",
+    "type_id": 3,
+    "buyout": 20000.00,
+    "discount": 7
+  },
+  {
+    "name": "Бронзовая",
+    "type_id": 4,
+    "buyout": 1.00,
+    "discount": 5
+  }
+]
 ```
 
 #### dictionary.productscategory - 

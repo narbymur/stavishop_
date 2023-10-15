@@ -12,7 +12,7 @@ DECLARE
     _res        JSON;
     _dt         TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
 BEGIN
-    SELECT coalesce(c.client_id, nextval('shop.shopsq')) AS client_id,
+    SELECT COALESCE(c.client_id, nextval('shop.shopsq')) AS client_id,
            c.name,
            c.birth_date,
            c.gender,
@@ -22,7 +22,7 @@ BEGIN
          _birth_date,
          _gender,
          _phone
-    FROM jsonb_to_record(_src) AS c (client_id  INT,
+    FROM JSONB_TO_RECORD(_src) AS c (client_id  INT,
                                      name       VARCHAR(300),
                                      birth_date DATE,
                                      gender     CHAR(3),

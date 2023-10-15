@@ -12,7 +12,7 @@ DECLARE
     _is_active   BOOLEAN;
     _dt          TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
 BEGIN
-    SELECT coalesce(s.staff_id, nextval('shop.shopsq')) AS staff_id,
+    SELECT COALESCE(s.staff_id, nextval('shop.shopsq')) AS staff_id,
            s.position_id,
            s.name,
            s.phone,
@@ -24,7 +24,7 @@ BEGIN
          _phone,
          _birth_date,
          _is_active
-    FROM jsonb_to_record(_src) AS s (staff_id    INT,
+    FROM JSONB_TO_RECORD(_src) AS s (staff_id    INT,
                                      position_id SMALLINT,
                                      name        VARCHAR(64),
                                      phone       VARCHAR(11),
