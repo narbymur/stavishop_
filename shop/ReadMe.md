@@ -73,8 +73,22 @@ select shop.clientscards_upd('{
 Функция для получения информации о сотруднике по айди должности и номеру телефона.
 Пример поиска:
 ```sql
-select shop.staff_getinfo(1,
-                          '89377881885')
+select shop.staff_getinfo(1::SMALLINT,
+                          '89377881885'::VARCHAR(11));
+```
+```json
+{
+   "data":[
+      {
+         "name":"Пирогова Анна Ивановна",
+         "phone":"89377881885",
+         "staff_id":11,
+         "is_active":true,
+         "birth_date":"1997-03-25",
+         "position_id":1
+      }
+   ]
+}
 ```
 #### shop.staff_upd - 
 Функция изменения или добавления сотрудника
