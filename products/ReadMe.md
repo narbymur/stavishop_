@@ -107,13 +107,28 @@ select products.productsonplace_getinfo(1, 1, 1)
 }
 ```
 #### products.productsonplace_upd
+Функция для раскладки товара на места хранения. 
+
+Для переноса товара с одного места на другое указать is_replace true для места хранения, с которого переносят.
+
+Для заполнения места хранения указать false.
+
+Переносим с места хранения 2 на место хранения 1:
 ```sql
 select products.productsonplace_upd('[
   {
     "place_id": 1,
     "room_id": 1,
-    "nm_id": 2,
-    "quantity": 1
+    "nm_id": 1,
+    "quantity": 6,
+    "is_replace": false
+  },
+  {
+    "place_id": 2,
+    "room_id": 1,
+    "nm_id": 1,
+    "quantity": 6,
+    "is_replace": true
   }
 ]');
 ```
