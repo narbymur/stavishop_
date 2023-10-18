@@ -4,5 +4,6 @@ CREATE TABLE IF NOT EXISTS shop.storage
     size        CHAR(3)     NOT NULL,
     quantity    SMALLINT    NOT NULL,
     ch_staff_id INT         NOT NULL,
-    ch_dt       TIMESTAMPTZ NOT NULL
+    ch_dt       TIMESTAMPTZ NOT NULL,
+    CONSTRAINT pk_storage PRIMARY KEY (nm_id, size)
 );
