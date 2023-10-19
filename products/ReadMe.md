@@ -137,4 +137,49 @@ select products.productsonplace_upd('[
 ```jsonb
 {"data" : null}
 ```
-####
+#### products.suppliersdelivery_finished -
+Функция для изменения статуса и даты поставки. Данные о поставке мы получаем из SuppliersDelivery_Import.
+Пример вызова:
+```sql
+CALL products.suppliersdelivery_finished(1,24, now())
+```
+#### products.ordertosuppliers_upd - 
+Функция для заполнения заказа поставщику. В order_info json - nm_id, size - XS, S, M, L, XL, quantity
+Пример заполнения: 
+```sql
+select products.ordertosuppliers_upd('{
+  "order_id": 59,
+  "suppliers_id": 1,
+  "order_info": {
+    "nm_id": 1,
+    "size": "XS",
+    "quantity": 34
+  },
+  "is_finished": true,
+  "dt": "now()"
+}', 24);
+```
+#### products.ordertosuppliers_getinfo - 
+Функция для получения информации о заказе поставщику.
+Пример поиска:
+```sql
+select products.ordertosuppliers_getinfo(59, 1)
+```
+Ответ: 
+```json
+{
+   "data":[
+      {
+         "dt":"2023-10-19T17:03:44.10629+03:00",
+         "order_id":59,
+         "order_info":{
+            "size":"XS",
+            "nm_id":1,
+            "quantity":34
+         },
+         "is_finished":true,
+         "suppliers_id":1
+      }
+   ]
+}
+```

@@ -1,10 +1,23 @@
 # Магазин одежды
-
+### Схема dictionary
 ### Справочник 
 #### dictionary.cardstype
 Таблица, в которой хранятся айди типов карт клиентов, названия этих карт и их скидки.
+#### dictionary.productscategory - 
+Таблица, в которой хранятся айди категории одежды и название категории (Например, штаны, футболка, пальто и т.д.)
+#### dictionary.productstype - 
+Таблица, в которой хранятся айди типов одежды и название типа (Например, обувь, верхняя одежда и т.д)
+#### dictionary.places - 
+Таблица, в которой хранится информации о местах хранения магазина
+#### dictionary.staffposition - 
+Таблица, в которой хранится информация о должностях и зарплате
+#### dictionary.suppliers - 
+Таблица, в которой хранится информация о поставщиках.
+В supp_info хранится ИНН.
 
-##### dictionary.cardstype_upd(_src JSONB) 
+
+### Функции
+##### dictionary.cardstype_upd - 
 Функция изменения или добавления типа карт
 Пример заполнения:
 ```sql 
@@ -20,7 +33,7 @@ select dictionary.cardstype_upd('{
 ```jsonb
 {"data" : null}
 ```
-#### dictionary.cardstype_getall() 
+#### dictionary.cardstype_getall -  
 Отображение информации в таблице
 
 Ответ:
@@ -53,10 +66,7 @@ select dictionary.cardstype_upd('{
 ]
 ```
 
-#### dictionary.productscategory - 
-Таблица, в которой хранятся айди категории одежды и название категории (Например, штаны, футболка, пальто и т.д.)
-
-#### dictionary.productscategory_upd(_src JSONB)
+#### dictionary.productscategory_upd - 
 Функция изменения или добавления категории товара
 
 Пример заполнения:
@@ -70,7 +80,7 @@ select dictionary.productscategory_upd('{
 ```jsonb
 {"data" : null}
 ```
-#### dictionary.productscategory_getall()
+#### dictionary.productscategory_getall - 
 Отображение информации в таблице
 
 Ответ:
@@ -168,10 +178,7 @@ select dictionary.productscategory_upd('{
    ]
 }
 ```
-#### dictionary.productstype - 
-Таблица, в которой хранятся айди типов одежды и название типа (Например, обувь, верхняя одежда и т.д)
-
-#### dictionary.productstype_upd(_src JSONB) - 
+#### dictionary.productstype_upd - 
 Функция изменения или добавления типов товара
 
 Пример заполнения:
@@ -185,7 +192,7 @@ select dictionary.productstype_upd('{
 ```jsonb
 {"data" : null}
 ```
-#### dictionary.productstype_getall() - 
+#### dictionary.productstype_getall - 
 Отображение информации в таблице
 
 Ответ:
@@ -231,9 +238,8 @@ select dictionary.productstype_upd('{
    ]
 }
 ```
-#### dictionary.places - 
-Таблица, в которой хранится информации о местах хранения магазина
-#### dictionary.places_upd(_src JSONB) - 
+
+#### dictionary.places_upd - 
 Функция на добавление или изменение названия мест для хранения вещей в магазине
 
 Пример заполнения:
@@ -335,9 +341,7 @@ select dictionary.places_upd('{
 }
 ```
 
-#### dictionary.staffposition - 
-Таблица, в которой хранится информация о должностях и зарплате
-#### dictionary.staffposition_upd(_src JSONB) - 
+#### dictionary.staffposition_upd - 
 Функция на добавление или изменение должности и зарплаты 
 
 Пример добавления:
@@ -353,7 +357,7 @@ select dictionary.staffposition_upd('{
 {"data" : null}
 ```
 
-#### dictionary.staffposition_getall() - 
+#### dictionary.staffposition_getall - 
 Функция на отображение всей информации в таблице
 
 Ответ:
@@ -408,9 +412,7 @@ select dictionary.staffposition_upd('{
    ]
 }
 ```
-#### dictionary.suppliers - 
-Таблица, в которой хранится информация о поставщиках.
-В supp_info хранится ИНН.
+
 #### dictionary.suppliers_upd - 
 Функция на добавление или изменение информации о поставщиках
 
