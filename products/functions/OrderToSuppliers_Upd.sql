@@ -26,7 +26,9 @@ BEGIN
                                      is_finished  BOOLEAN,
                                      dt           TIMESTAMPTZ)
              LEFT JOIN dictionary.suppliers sup
-                       ON sup.suppliers_id = s.suppliers_id;
+                       ON sup.suppliers_id = s.suppliers_id
+             LEFT JOIN products.ordertosupplier os
+                       ON os.order_id = s.order_id;
 
     WITH cte AS (
         INSERT INTO products.ordertosupplier AS os (order_id,
