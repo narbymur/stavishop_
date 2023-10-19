@@ -10,7 +10,7 @@ DECLARE
     _is_finished  BOOLEAN;
     _dt           TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
 BEGIN
-    SELECT COALESCE(s.order_id, nextval('shop.shopsq')) AS order_id,
+    SELECT COALESCE(os.order_id, nextval('shop.shopsq')) AS order_id,
            sup.suppliers_id,
            s.order_info,
            s.is_finished,
