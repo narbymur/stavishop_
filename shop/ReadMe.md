@@ -151,5 +151,63 @@ select shop.storage_upd('[
 ```jsonb
 {"data" : null}
 ```
-#### 
+#### shop.sales_create - 
+Функция факта продажи. Стоимость каждого товара указана со скидкой. 
+
+В таблице хранится факт продажи только тех клиентов, кто зарегистрирован в программе лояльности 
+```sql
+SELECT shop.sale_create('
+                        [
+                          {
+                            "client_id": 37,
+                            "nm_id": 1,
+                            "size": "XS",
+                            "quantity": 2
+                          },
+                          {
+                            "client_id": 37,
+                            "nm_id": 1,
+                            "size": "S",
+                            "quantity": 3
+                          }
+                        ]', 24);
+```
+
+#### shop.sales_getbyclient - 
+Функция для отображения информации о покупке по айди клиента
+Пример поиска:
+```sql
+select shop.sales_getbyclient(37)
+```
+Ответ:
+```json
+{
+   "data":[
+      {
+         "dt":"2023-10-19T19:21:50.741843+03:00",
+         "ch_dt":"2023-10-19T19:21:50.741843+03:00",
+         "client_id":37,
+         "sale_info":{
+            "size":"S  ",
+            "nm_id":1,
+            "amount":5097.45,
+            "quantity":3
+         },
+         "ch_staff_id":24
+      },
+      {
+         "dt":"2023-10-19T19:21:50.741843+03:00",
+         "ch_dt":"2023-10-19T19:21:50.741843+03:00",
+         "client_id":37,
+         "sale_info":{
+            "size":"XS ",
+            "nm_id":1,
+            "amount":3398.30,
+            "quantity":2
+         },
+         "ch_staff_id":24
+      }
+   ]
+}
+```
 
