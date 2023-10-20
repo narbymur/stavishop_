@@ -4,10 +4,9 @@ CREATE OR REPLACE FUNCTION products.prices_upd(_src JSONB, _ch_staff_id INT) RET
 AS
 $$
 DECLARE
-    _res   JSONB;
     _nm_id BIGINT;
     _price NUMERIC(8, 2);
-    _dt    TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
+    _dt    TIMESTAMPTZ := NOW() AT TIME ZONE 'Europe/Moscow';
 BEGIN
     SELECT p.nm_id AS nm_id,
            s.price
@@ -39,7 +38,6 @@ BEGIN
                     ch_dt       = excluded.ch_dt
             RETURNING pp.*)
 
-       , his AS (
         INSERT INTO history.priceschanges (nm_id,
                                            price,
                                            ch_staff_id,
@@ -48,11 +46,8 @@ BEGIN
                    i.price,
                    i.ch_staff_id,
                    i.ch_dt
-            FROM ins i)
+            FROM ins i;
 
-    SELECT JSONB_BUILD_OBJECT('data', NULL)
-    INTO _res;
-
-    RETURN _res;
+     RETURN JSONB_BUILD_OBJECT('data', NULL);
 END
 $$;

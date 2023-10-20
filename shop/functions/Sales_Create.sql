@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION shop.sale_create(_src JSONB, _ch_staff_id INT) RETURN
 AS
 $$
 DECLARE
-    _dt TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
+    _dt TIMESTAMPTZ := NOW() AT TIME ZONE 'Europe/Moscow';
 BEGIN
     WITH cte AS (SELECT s.client_id,
                         s.nm_id,

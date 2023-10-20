@@ -48,7 +48,18 @@ select products.prices_upd('{
 ```jsonb
 {"data" : null}
 ```
-
+Пример ошибки:
+```json
+{
+   "errors":[
+      {
+         "error":"products.prices_upd.nm.nm_not_found",
+         "detail":null,
+         "message":"Такой номенклатуры не существует!"
+      }
+   ]
+}
+```
 #### products.products_getinfo - 
 Функция для поиска товара по nm_id, type_id, category_id
 ```sql

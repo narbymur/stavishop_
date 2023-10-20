@@ -12,8 +12,8 @@ BEGIN
                      pp.nm_id,
                      pp.quantity
               FROM products.productsonplace pp
-              WHERE _nm_id    = COALESCE(pp.nm_id, _nm_id)
-                AND _place_id = COALESCE(pp.place_id, _place_id)
-                AND _room_id  = COALESCE(pp.room_id, _room_id)) res;
+              WHERE pp.nm_id    = COALESCE(_nm_id, pp.nm_id)
+                AND pp.place_id = COALESCE(_place_id, pp.place_id)
+                AND pp.room_id  = COALESCE(_room_id, pp.room_id)) res;
 END
 $$;

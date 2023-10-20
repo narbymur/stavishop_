@@ -8,7 +8,7 @@ DECLARE
     _suppliers_id INT;
     _order_info   JSONB;
     _is_finished  BOOLEAN;
-    _dt           TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
+    _dt           TIMESTAMPTZ := NOW() AT TIME ZONE 'Europe/Moscow';
 BEGIN
     SELECT COALESCE(os.order_id, nextval('shop.shopsq')) AS order_id,
            sup.suppliers_id,
@@ -46,30 +46,31 @@ BEGIN
                    _ch_staff_id,
                    _dt
             ON CONFLICT (order_id) DO UPDATE
-                SET order_id     = excluded.order_id,
+                SET order_id = excluded.order_id,
                     suppliers_id = excluded.suppliers_id,
-                    order_info   = excluded.order_info,
-                    is_finished  = excluded.is_finished,
-                    dt           = excluded.dt,
-                    ch_staff_id  = excluded.ch_staff_id,
-                    ch_dt        = excluded.ch_dt
+                    order_info = excluded.order_info,
+                    is_finished = excluded.is_finished,
+                    dt = excluded.dt,
+                    ch_staff_id = excluded.ch_staff_id,
+                    ch_dt = excluded.ch_dt
             RETURNING os.*)
 
-        INSERT INTO whsync.ordertosupplierssync (order_id,
-                                                 suppliers_id,
-                                                 order_info,
-                                                 is_finished,
-                                                 dt,
-                                                 ch_staff_id,
-                                                 ch_dt)
-            SELECT c.order_id,
-                   c.suppliers_id,
-                   c.order_info,
-                   c.is_finished,
-                   c.dt,
-                   c.ch_staff_id,
-                   c.ch_dt
-            FROM cte c;
+    INSERT
+    INTO whsync.ordertosupplierssync (order_id,
+                                      suppliers_id,
+                                      order_info,
+                                      is_finished,
+                                      dt,
+                                      ch_staff_id,
+                                      ch_dt)
+    SELECT c.order_id,
+           c.suppliers_id,
+           c.order_info,
+           c.is_finished,
+           c.dt,
+           c.ch_staff_id,
+           c.ch_dt
+    FROM cte c;
 
     RETURN JSONB_BUILD_OBJECT('data', NULL);
 END
