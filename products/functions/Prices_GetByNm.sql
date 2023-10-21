@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION products.prices_bynm(_nm_id BIGINT) RETURNS JSONB
+CREATE OR REPLACE FUNCTION products.prices_getbynm(_nm_id BIGINT) RETURNS JSONB
     LANGUAGE plpgsql
     SECURITY DEFINER
 AS

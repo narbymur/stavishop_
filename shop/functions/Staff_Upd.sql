@@ -10,7 +10,7 @@ DECLARE
     _phone       VARCHAR(11);
     _birth_date  DATE;
     _is_active   BOOLEAN;
-    _dt          TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
+    _dt          TIMESTAMPTZ := NOW() AT TIME ZONE 'Europe/Moscow';
 BEGIN
     SELECT COALESCE(s.staff_id, nextval('shop.shopsq')) AS staff_id,
            s.position_id,

@@ -1,4 +1,6 @@
-CREATE OR REPLACE FUNCTION products.products_getinfo(_nm_id BIGINT DEFAULT NULL, _type_id SMALLINT DEFAULT NULL, _category_id INT DEFAULT NULL) RETURNS JSONB
+CREATE OR REPLACE FUNCTION products.products_getinfo(_nm_id       BIGINT DEFAULT NULL,
+                                                     _type_id     SMALLINT DEFAULT NULL,
+                                                     _category_id INT DEFAULT NULL) RETURNS JSONB
     LANGUAGE plpgsql
     SECURITY DEFINER
 AS

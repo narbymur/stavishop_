@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION products.products_upd(_src JSONB, _ch_staff_id INT) R
 AS
 $$
 DECLARE
-    _dt TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
+    _dt TIMESTAMPTZ := NOW() AT TIME ZONE 'Europe/Moscow';
 BEGIN
     INSERT INTO products.products (nm_id,
                                    type_id,

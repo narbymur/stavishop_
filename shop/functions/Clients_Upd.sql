@@ -10,7 +10,7 @@ DECLARE
     _gender     CHAR(3);
     _phone      VARCHAR(11);
     _res        JSON;
-    _dt         TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
+    _dt         TIMESTAMPTZ := NOW() AT TIME ZONE 'Europe/Moscow';
 BEGIN
     SELECT COALESCE(c.client_id, nextval('shop.shopsq')) AS client_id,
            c.name,

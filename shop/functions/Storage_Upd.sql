@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION shop.storage_upd(_src JSONB, _ch_staff_id INT) RETURN
 AS
 $$
 DECLARE
-    _dt TIMESTAMPTZ := now() AT TIME ZONE 'Europe/Moscow';
+    _dt TIMESTAMPTZ := NOW() AT TIME ZONE 'Europe/Moscow';
 BEGIN
     INSERT INTO shop.storage AS st (nm_id,
                                     size,

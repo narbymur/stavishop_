@@ -57,7 +57,18 @@ select shop.clients_upd('{
 ```jsonb
 {"data" : null}
 ```
-
+Пример ошибки:
+```json
+{
+   "errors":[
+      {
+         "error":"shop.clientsupd.phone.phone_exists",
+         "detail":null,
+         "message":"Такой телефон у другого человека"
+      }
+   ]
+}
+```
 #### shop.clientscards_upd - 
 Функция изменения или добавления карты для клиента
 Пример заполнения:
@@ -101,6 +112,18 @@ select shop.staff_upd('{
   "birth_date": "2000-12-20",
   "is_active": true
 }', 24);
+```
+Пример ошибки:
+```json
+{
+   "errors":[
+      {
+         "error":"shop.staffupd.phone.phone_exists",
+         "detail":null,
+         "message":"Такой телефон у другого человека"
+      }
+   ]
+}
 ```
 #### shop.storage_getbynm - 
 Функция для отображении информации о общем количестве товара определенного размера

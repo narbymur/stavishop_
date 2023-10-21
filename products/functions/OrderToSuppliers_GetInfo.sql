@@ -1,5 +1,4 @@
-CREATE OR REPLACE FUNCTION products.ordertosuppliers_getinfo(_order_id INT DEFAULT NULL,
-                                                             _suppliers_id INT DEFAULT NULL) RETURNS JSONB
+CREATE OR REPLACE FUNCTION products.ordertosuppliers_getinfo(_order_id INT DEFAULT NULL, _suppliers_id INT DEFAULT NULL) RETURNS JSONB
     LANGUAGE plpgsql
     SECURITY DEFINER
 AS
@@ -12,7 +11,7 @@ BEGIN
                      os.is_finished,
                      os.dt
               FROM products.ordertosupplier os
-              WHERE _order_id     = COALESCE(os.order_id, _order_id)
-                AND _suppliers_id = COALESCE(os.suppliers_id, _suppliers_id)) res;
+              WHERE os.order_id     = COALESCE(_order_id, os.order_id)
+                AND os.suppliers_id = COALESCE(_suppliers_id, os.suppliers_id)) res;
 END
 $$;
