@@ -46,13 +46,13 @@ BEGIN
                    _ch_staff_id,
                    _dt
             ON CONFLICT (order_id) DO UPDATE
-                SET order_id = excluded.order_id,
+                SET order_id     = excluded.order_id,
                     suppliers_id = excluded.suppliers_id,
-                    order_info = excluded.order_info,
-                    is_finished = excluded.is_finished,
-                    dt = excluded.dt,
-                    ch_staff_id = excluded.ch_staff_id,
-                    ch_dt = excluded.ch_dt
+                    order_info   = excluded.order_info,
+                    is_finished  = excluded.is_finished,
+                    dt           = excluded.dt,
+                    ch_staff_id  = excluded.ch_staff_id,
+                    ch_dt        = excluded.ch_dt
             RETURNING os.*)
 
     INSERT
