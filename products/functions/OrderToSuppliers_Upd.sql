@@ -55,14 +55,13 @@ BEGIN
                     ch_dt        = excluded.ch_dt
             RETURNING os.*)
 
-    INSERT
-    INTO whsync.ordertosupplierssync (order_id,
-                                      suppliers_id,
-                                      order_info,
-                                      is_finished,
-                                      dt,
-                                      ch_staff_id,
-                                      ch_dt)
+    INSERT INTO whsync.ordertosupplierssync (order_id,
+                                             suppliers_id,
+                                             order_info,
+                                             is_finished,
+                                             dt,
+                                             ch_staff_id,
+                                             ch_dt)
     SELECT c.order_id,
            c.suppliers_id,
            c.order_info,
