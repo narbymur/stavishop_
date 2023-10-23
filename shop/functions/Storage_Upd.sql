@@ -25,10 +25,11 @@ BEGIN
                        ON p.nm_id = s.nm_id
     GROUP BY p.nm_id, s.size
     ON CONFLICT (nm_id, size) DO UPDATE
-        SET quantity    = st.quantity + excluded.quantity,
-            ch_staff_id = excluded.ch_staff_id,
-            ch_dt       = excluded.ch_dt;
+    SET quantity    = st.quantity + excluded.quantity,
+        ch_staff_id = excluded.ch_staff_id,
+        ch_dt       = excluded.ch_dt;
 
     RETURN JSONB_BUILD_OBJECT('data', NULL);
 END
 $$;
+

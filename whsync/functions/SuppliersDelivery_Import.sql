@@ -35,13 +35,14 @@ BEGIN
     FROM cte s
     WHERE rn = 1
     ON CONFLICT (delivery_id) DO UPDATE
-        SET suppliers_id  = excluded.suppliers_id,
-            delivery_info = excluded.delivery_info,
-            plan_dt       = excluded.plan_dt,
-            is_finished   = excluded.is_finished,
-            dt            = excluded.dt
+    SET suppliers_id  = excluded.suppliers_id,
+        delivery_info = excluded.delivery_info,
+        plan_dt       = excluded.plan_dt,
+        is_finished   = excluded.is_finished,
+        dt            = excluded.dt
     WHERE sd.dt <= excluded.dt;
 
     RETURN JSONB_BUILD_OBJECT('data', NULL);
 END
 $$;
+
