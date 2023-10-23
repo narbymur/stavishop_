@@ -28,7 +28,7 @@ BEGIN
                                      gender     CHAR(3),
                                      phone      VARCHAR(11));
 
-    IF EXISTS(SELECT 1 FROM shop.clients cl WHERE cl.phone = _phone)
+    IF EXISTS(SELECT 1 FROM shop.clients cl WHERE cl.phone = _phone AND cl.client_id <> _client_id)
     THEN
         RETURN public.errmessage(_errcode := 'shop.clientsupd.phone.phone_exists',
                                  _msg     := 'Такой телефон у другого человека',
@@ -43,21 +43,21 @@ BEGIN
                                         phone,
                                         ch_staff_id,
                                         ch_dt)
-            SELECT _client_id,
-                   _name,
-                   _birth_date,
-                   _gender,
-                   _phone,
-                   _ch_staff_id,
-                   _dt
-            ON CONFLICT (client_id) DO UPDATE
-                SET name        = excluded.name,
-                    birth_date  = excluded.birth_date,
-                    gender      = excluded.gender,
-                    phone       = excluded.phone,
-                    ch_staff_id = excluded.ch_staff_id,
-                    ch_dt       = excluded.ch_dt
-            RETURNING cl.*)
+        SELECT _client_id,
+               _name,
+               _birth_date,
+               _gender,
+               _phone,
+               _ch_staff_id,
+               _dt
+        ON CONFLICT (client_id) DO UPDATE
+        SET name        = excluded.name,
+            birth_date  = excluded.birth_date,
+            gender      = excluded.gender,
+            phone       = excluded.phone,
+            ch_staff_id = excluded.ch_staff_id,
+            ch_dt       = excluded.ch_dt
+        RETURNING cl.*)
 
        , his AS (
         INSERT INTO history.clientschanges (client_id,
@@ -67,14 +67,14 @@ BEGIN
                                             phone,
                                             ch_staff_id,
                                             ch_dt)
-            SELECT i.client_id,
-                   i.name,
-                   i.birth_date,
-                   i.gender,
-                   i.phone,
-                   i.ch_staff_id,
-                   i.ch_dt
-            FROM ins i)
+        SELECT i.client_id,
+               i.name,
+               i.birth_date,
+               i.gender,
+               i.phone,
+               i.ch_staff_id,
+               i.ch_dt
+        FROM ins i)
 
     , sync AS (
         INSERT INTO whsync.clientssync (client_id,
@@ -84,14 +84,14 @@ BEGIN
                                         phone,
                                         ch_staff_id,
                                         ch_dt)
-    SELECT i.client_id,
-           i.name,
-           i.birth_date,
-           i.gender,
-           i.phone,
-           i.ch_staff_id,
-           i.ch_dt
-    FROM ins i)
+        SELECT i.client_id,
+               i.name,
+               i.birth_date,
+               i.gender,
+               i.phone,
+               i.ch_staff_id,
+               i.ch_dt
+        FROM ins i)
 
     SELECT JSONB_BUILD_OBJECT('data', JSONB_AGG(ROW_TO_JSON(res)))
     INTO _res

@@ -26,9 +26,9 @@ BEGIN
 
        , cte_upd AS (
         UPDATE whsync.clientssync cs
-            SET sync_dt = _dt
-            FROM sync_cte sc
-            WHERE cs.log_id = sc.log_id)
+        SET sync_dt = _dt
+        FROM sync_cte sc
+        WHERE cs.log_id = sc.log_id)
 
     SELECT JSONB_BUILD_OBJECT('data', JSONB_AGG(ROW_TO_JSON(sc)))
     INTO _res
@@ -37,3 +37,4 @@ BEGIN
     RETURN _res;
 END
 $$;
+
