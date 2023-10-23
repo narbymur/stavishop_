@@ -49,7 +49,6 @@ BEGIN
            i.quantity
     FROM ins_cte i;
 
-
     RETURN JSONB_BUILD_OBJECT('data', NULL);
 END
 $$;

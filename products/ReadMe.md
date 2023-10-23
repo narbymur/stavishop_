@@ -131,15 +131,15 @@ select products.productsonplace_upd('[
     "place_id": 1,
     "room_id": 1,
     "nm_id": 1,
-    "quantity": 6,
-    "is_replace": false
+    "quantity": 9,
+    "is_replace": true
   },
   {
     "place_id": 2,
     "room_id": 1,
     "nm_id": 1,
-    "quantity": 6,
-    "is_replace": true
+    "quantity": 9,
+    "is_replace": false
   }
 ]');
 ```
@@ -149,7 +149,7 @@ select products.productsonplace_upd('[
 {"data" : null}
 ```
 #### products.suppliersdelivery_finished -
-Функция для изменения статуса и даты поставки. Данные о поставке мы получаем из SuppliersDelivery_Import.
+Процедура для закрытия поставки. Данные о поставке мы получаем из SuppliersDelivery_Import.
 Пример вызова:
 ```sql
 CALL products.suppliersdelivery_finished(1,24, now())
@@ -190,6 +190,33 @@ select products.ordertosuppliers_getinfo(59, 1)
          },
          "is_finished":true,
          "suppliers_id":1
+      }
+   ]
+}
+```
+#### products.suppliersdelivery_getinfo - 
+Функция для получения информации о поставках
+Пример вызова:
+```sql
+select products.suppliersdelivery_getinfo();
+```
+Ответ:
+```json
+{
+   "data":[
+      {
+         "dt":"2023-10-19T12:18:57.483766+00:00",
+         "ch_dt":null,
+         "plan_dt":"2023-10-19",
+         "ch_staff_id":null,
+         "delivery_id":7,
+         "is_finished":true,
+         "suppliers_id":1,
+         "delivery_info":{
+            "size":"XS",
+            "nm_id":1,
+            "quantity":34
+         }
       }
    ]
 }
